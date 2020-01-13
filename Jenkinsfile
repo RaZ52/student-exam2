@@ -4,7 +4,7 @@ node {
             sh 'python3 --version'
         }
         stage('AppTest') {
-            sh "pip install -e '.[test]'"
+            sh "pip3 install -e '.[test]'"
             sh 'coverage run -m pytest'
             sh 'coverage report'
         }
