@@ -3,6 +3,7 @@ node {
         stage('AppTest') {
             sh 'git clone https://github.com/RaZ52/student-exam2'
             sh 'cd student-exam2'
+	    sh 'pwd'
             sh 'pip3 install -e \\".[test]\\"'
             sh 'coverage run -m pytest'
             sh 'coverage report'
