@@ -1,4 +1,4 @@
-node('node') {
+node {
     try {
         stage('Test') {
             sh 'python3 --version'
