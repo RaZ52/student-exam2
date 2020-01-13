@@ -7,6 +7,7 @@ node {
             sh 'coverage report'
         }
         stage('BuildImage') {
+	    checkout scm
             def image = docker.build("flaskapp:${env.BUILD_ID}")
         }
     }
