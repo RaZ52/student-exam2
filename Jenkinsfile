@@ -1,21 +1,31 @@
 node {
     try {
-        stage('AppTest') {
+        stage('Git Clone') {
             sh 'git clone https://github.com/RaZ52/student-exam2'
-	    sh 'pip3 install -e ./student-exam2[test]'
+        }
+        stage('Test') {
+	        sh 'pip3 install -e ./student-exam2[test]'
             sh 'coverage run -m pytest'
             sh 'coverage report'
         }
-        stage('BuildImage') {
-	    checkout scm
-            def image = docker.build("flaskapp:${env.BUILD_ID}")
+        stage('Build Image') {
+	        checkout scm
+            def image = docker.build("raz52/cicd_exam:flaskapp${env.BUILD_ID}")
+        }
+        stage('Deploy Image') {
+            docker.withRegistry('', 'dockerhub') {
+                image.push()
+            }
+        }
+        stage('Remove Image') {
+            sh 'docker rmi raz52/cicd_exam:flaskapp${env.BUILD_ID}'
         }
     }
     catch (err) {
         throw err
     }
     finally {
-        stage('Clear') {
+        stage('Delete Repo') {
             sh 'rm -rf /home/jenkins/workspace/ci/student-exam2'
         }
     }
