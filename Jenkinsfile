@@ -1,5 +1,6 @@
 node {
     try {
+	def image
         stage('Git Clone') {
             sh 'git clone https://github.com/RaZ52/student-exam2'
         }
@@ -10,7 +11,7 @@ node {
         }
         stage('Build Image') {
 	        checkout scm
-            def image = docker.build("raz52/cicd_exam:flaskapp${env.BUILD_ID}")
+            image = docker.build("raz52/cicd_exam:flaskapp${env.BUILD_ID}")
         }
         stage('Deploy Image') {
             docker.withRegistry('', '48cdcec7-3998-4f42-960c-6736198d01de') {
