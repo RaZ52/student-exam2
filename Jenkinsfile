@@ -13,7 +13,7 @@ node {
             def image = docker.build("raz52/cicd_exam:flaskapp${env.BUILD_ID}")
         }
         stage('Deploy Image') {
-            docker.withRegistry('', 'dockerhub') {
+            docker.withRegistry('', '48cdcec7-3998-4f42-960c-6736198d01de') {
                 image.push()
             }
         }
