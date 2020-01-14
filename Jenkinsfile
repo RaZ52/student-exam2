@@ -19,7 +19,7 @@ node {
             }
         }
         stage('Remove Image') {
-            sh 'docker rmi raz52/cicd_exam:flaskapp${env.BUILD_ID}'
+            sh "docker rmi raz52/cicd_exam:flaskapp${env.BUILD_ID}"
         }
     }
     catch (err) {
