@@ -1,4 +1,4 @@
-node {
+node("ci") {
     try {
 	def image
         stage('Git Clone') {
